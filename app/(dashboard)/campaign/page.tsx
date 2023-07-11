@@ -6,17 +6,20 @@ import { Heading } from "@/components/ui/heading";
 import React from "react";
 import { Separator } from "@/components/ui/separator";
 import { DataTable } from "@/components/ui/data-table";
-import { columns } from "./components/columns";
+import { CampaignColumn, columns } from "./components/columns";
 import { getCurrentUser } from "@/lib/session";
 import { authOptions } from "@/lib/auth";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ApiList } from "@/components/ui/api-list";
+import prismadb from "@/lib/prismadb";
+
+import { format } from "date-fns";
 
 type Props = {};
 
 export const metadata = {
-  title: "Campaigns",
+  title: "Campaigns | Donation",
   description: "Manage campaign for your store",
 };
 
@@ -26,6 +29,20 @@ const CampaignPage = async (props: Props) => {
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/login");
   }
+
+  const campaigns = await prismadb.campaign.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formattedCampaigns: CampaignColumn[] = campaigns.map((item) => ({
+    id: item.id,
+    label: item.title,
+    donors: 0,
+    active: item.status,
+    createdAt: format(item.createdAt, "MMMM do, yyyy"),
+  }));
 
   return (
     <div className="flex-col">
@@ -43,7 +60,11 @@ const CampaignPage = async (props: Props) => {
           </Link>
         </div>
         <Separator />
-        <DataTable searchKey="label" columns={columns} data={[]} />
+        <DataTable
+          searchKey="label"
+          columns={columns}
+          data={formattedCampaigns}
+        />
         <Heading title="API" description="API Calls for Campaign" />
         <Separator />
         <ApiList entityName="campaigns" entityIdName="campaignId" />

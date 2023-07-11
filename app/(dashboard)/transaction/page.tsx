@@ -1,15 +1,14 @@
-import { Heading } from '@/components/ui/heading';
-import { Separator } from '@/components/ui/separator';
-import React from 'react'
-import { TransactionClient } from './components/client';
+import { Heading } from "@/components/ui/heading";
+import { Separator } from "@/components/ui/separator";
+import React from "react";
+import { TransactionClient } from "./components/client";
 
-type Props = {}
+type Props = {};
 
 export const metadata = {
-  title: "Transactions",
+  title: "Transactions | Donation",
   description: "Manage transaction for the store.",
 };
-
 
 const TransactionPage = (props: Props) => {
   return (
@@ -19,6 +18,6 @@ const TransactionPage = (props: Props) => {
       </div>
     </div>
   );
-}
+};
 
-export default TransactionPage
+export default TransactionPage;

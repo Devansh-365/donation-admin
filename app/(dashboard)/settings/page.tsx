@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 export const metadata = {
-  title: "Settings",
+  title: "Settings | Donation",
   description: "Manage account and website settings.",
 };
 
