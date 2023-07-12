@@ -19,14 +19,14 @@ const MainNav = ({
       active: pathname === `/`,
     },
     {
-      href: `/campaign`,
-      label: "Campaign",
-      active: pathname === `/campaign`,
+      href: `/campaigns`,
+      label: "Campaigns",
+      active: pathname === `/campaigns`,
     },
     {
-      href: `/transaction`,
-      label: "Transaction",
-      active: pathname === `/transaction`,
+      href: `/transactions`,
+      label: "Transactions",
+      active: pathname === `/transactions`,
     },
     {
       href: `/settings`,

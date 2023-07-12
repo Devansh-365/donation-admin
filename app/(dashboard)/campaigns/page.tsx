@@ -54,7 +54,7 @@ const CampaignPage = async (props: Props) => {
           />
           <Link
             className={cn(buttonVariants({ variant: "default" }))}
-            href="/campaign/new"
+            href="/campaigns/new"
           >
             <Plus className="mr-2 h-4 w-4" /> Add New
           </Link>

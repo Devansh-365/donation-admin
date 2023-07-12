@@ -9,13 +9,16 @@ import { AlertModal } from "@/components/modals/alert-modal";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import * as z from "zod";
+import axios from "axios";
 import { Trash } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { toast } from "react-hot-toast";
 
 const formSchema = z.object({
-  label: z.string().min(1),
+  title: z.string().min(1),
+  status: z.boolean(),
   imageUrl: z.string().min(1),
 });
 
@@ -29,6 +32,14 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
   const params = useParams();
   const router = useRouter();
 
+  const [formValues, setFormValues] = useState<CampaignFormValues>(
+    initialData || {
+      title: "",
+      status: false,
+      imageUrl: "",
+    }
+  );
+
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -37,12 +48,47 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
   const toastMessage = initialData ? "Campaign updated." : "Campaign created.";
   const action = initialData ? "Save changes" : "Create";
 
+  const onSubmit = async (data: CampaignFormValues) => {
+    try {
+      setLoading(true);
+      if (initialData) {
+        await axios.patch(`/api/campaigns/${params?.campaignId}`, data);
+      } else {
+        await axios.post(`/api/campaigns`, data);
+      }
+      router.refresh();
+      router.push(`/campaigns`);
+      toast.success(toastMessage);
+    } catch (error: any) {
+      toast.error("Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onDelete = async () => {
+    try {
+      setLoading(true);
+      await axios.delete(`/api/campaigns/${params?.campaignId}`);
+      router.refresh();
+      router.push(`/campaigns`);
+      toast.success("campaign deleted.");
+    } catch (error: any) {
+      toast.error(
+        "Make sure you removed all categories using this campaign first."
+      );
+    } finally {
+      setLoading(false);
+      setOpen(false);
+    }
+  };
+
   return (
     <>
       <AlertModal
         isOpen={open}
         onClose={() => setOpen(false)}
-        onConfirm={() => {}}
+        onConfirm={onDelete}
         loading={loading}
       />
       <div className="flex items-center justify-between">
@@ -59,21 +105,18 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
         )}
       </div>
       <Separator />
-      <form onSubmit={() => {}} className="space-y-8 w-full">
+      <form onSubmit={() => onSubmit} className="space-y-8 w-full">
         <div className="md:grid md:grid-cols-2 items-end gap-8">
           <div className="grid gap-1">
-            <Label className="sr-only" htmlFor="name">
-              Name
-            </Label>
+            <Label htmlFor="name">Name</Label>
             <Input id="name" className="w-[400px]" name="name" size={32} />
-            {/* {errors?.name && (
-              <p className="px-1 text-xs text-red-600">{errors.name.message}</p>
-            )} */}
           </div>
           <div className="flex items-start space-x-3 space-y-0 rounded-md border p-4">
             <Checkbox id="terms" />
             <div className="space-y-1 leading-none">
-              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">fd</label>
+              <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                fd
+              </label>
               <p className="text-sm text-muted-foreground">sdsd</p>
             </div>
           </div>

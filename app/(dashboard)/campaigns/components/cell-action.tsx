@@ -1,6 +1,6 @@
 "use client";
 
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 import { toast } from "react-hot-toast";
@@ -32,11 +32,16 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     try {
       setLoading(true);
       await axios.delete(`/api/campaigns/${data.id}`);
-      toast.success("Billboard deleted.");
+      toast.success("Campaign deleted.");
       router.refresh();
-    } catch (error) {
+    } catch (error: any) {
+      if (error.response) {
+        console.log(error.response.data); // Log the response data
+        console.log(error.response.status); // Log the response status
+        console.log(error.response.headers); // Log the response headers
+      }
       toast.error(
-        "Make sure you removed all categories using this billboard first."
+        "Make sure you removed all categories using this campaign first."
       );
     } finally {
       setOpen(false);
@@ -46,7 +51,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("Billboard ID copied to clipboard.");
+    toast.success("Campaign ID copied to clipboard.");
   };
 
   return (
@@ -70,9 +75,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
             <Copy className="mr-2 h-4 w-4" /> Copy Id
           </DropdownMenuItem>
           <DropdownMenuItem
-            onClick={() =>
-              router.push(`/campaigns/${data.id}`)
-            }
+            onClick={() => router.push(`/campaigns/${data.id}`)}
           >
             <Edit className="mr-2 h-4 w-4" /> Update
           </DropdownMenuItem>
