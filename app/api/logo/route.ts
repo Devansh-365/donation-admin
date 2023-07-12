@@ -30,12 +30,22 @@ export async function POST(req: Request) {
     const json = await req.json();
     const body = changeLogoSchema.parse(json);
 
-    const post = await prismadb.logo.update({
-      where: { id: 1 },
-      data: { logoUrl: body.logoUrl },
-    });
+    const existingLogo = await prismadb.logo.findFirst();
 
-    return new Response(JSON.stringify(post));
+    if (existingLogo) {
+      const updatedLogo = await prismadb.logo.update({
+        where: { id: existingLogo.id },
+        data: { logoUrl: body.logoUrl },
+      });
+
+      return new Response(JSON.stringify(updatedLogo));
+    } else {
+      const newLogo = await prismadb.logo.create({
+        data: { logoUrl: body.logoUrl, name: "Logo Name" },
+      });
+
+      return new Response(JSON.stringify(newLogo));
+    }
   } catch (error) {
     console.log(error);
     return new Response(null, { status: 500 });

@@ -2,6 +2,7 @@ import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import UserForm from "@/components/user-form";
 import { authOptions } from "@/lib/auth";
+import prismadb from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -18,6 +19,8 @@ const SettingsPage = async () => {
     redirect(authOptions?.pages?.signIn || "/login");
   }
 
+  const data = await prismadb.logo.findFirst();
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
@@ -27,7 +30,7 @@ const SettingsPage = async () => {
         />
         <Separator />
         <div className="grid gap-10">
-          <UserForm user={{ id: user?.name, name: user.name || "" }} />
+          <UserForm initialData={data} />
         </div>
       </div>
     </div>

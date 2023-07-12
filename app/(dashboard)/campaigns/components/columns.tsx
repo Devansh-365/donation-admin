@@ -15,7 +15,7 @@ export type CampaignColumn = {
 export const columns: ColumnDef<CampaignColumn>[] = [
   {
     accessorKey: "label",
-    header: "Label",
+    header: "Name",
   },
   {
     accessorKey: "donors",

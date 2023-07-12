@@ -39,7 +39,9 @@ export async function POST(req: Request) {
     // const { user } = session;
 
     // Validate the request body
-    const body = transactionCreateSchema.parse(req.body);
+    const json = await req.json();
+    const body = transactionCreateSchema.parse(json);
+    console.log("Parsed body: \n\n\n", body);
 
     // Create the transaction
     const transaction = await prismadb.transaction.create({

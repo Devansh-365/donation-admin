@@ -2,15 +2,16 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 
-export type OrderColumn = {
+export type TransactionColumn = {
   id: string;
-  amount: string;
-  frais: string;
-  net: boolean;
+  campaign: string;
+  amount: number;
+  frais: number;
+  net: number;
   createdAt: string;
 };
 
-export const columns: ColumnDef<OrderColumn>[] = [
+export const columns: ColumnDef<TransactionColumn>[] = [
   {
     accessorKey: "campaign",
     header: "Campaign",

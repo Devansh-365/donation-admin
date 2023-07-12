@@ -8,6 +8,8 @@ import { redirect } from "next/navigation";
 import { BarSection } from "@/components/graphs/bar-chart";
 import { PieSection } from "@/components/graphs/pie-chart";
 import { getDonationRevenue } from "@/actions/get-dontaion-revenue";
+import prismadb from "@/lib/prismadb";
+import { getCampaignRevenue } from "@/actions/get-campaign-revenue";
 
 type Props = {};
 
@@ -41,13 +43,34 @@ const DashboardPage = async (props: Props) => {
   }
 
   const donationRevenue = await getDonationRevenue();
+  const campaignRevenue = await getCampaignRevenue();
+  console.log("camp : ", campaignRevenue);
+  const transactions = await prismadb.transaction.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  function totalDonation(transactions: any): number {
+    let total = 0;
+    for (const transaction of transactions) {
+      total += transaction.amount - transaction.frais;
+    }
+    return total;
+  }
+  function averageDonation(transactions: any): number {
+    const total = totalDonation(transactions);
+    return total / transactions.length;
+  }
+  const totalNet = totalDonation(transactions);
+  const averageNet = averageDonation(transactions);
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <Heading title="Dashboard" description="Overview of your store" />
         <Separator />
-        <div className="grid gap-4 grid-cols-4">
+        <div className="grid gap-4 grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
@@ -56,7 +79,7 @@ const DashboardPage = async (props: Props) => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$21</div>
+              <div className="text-2xl font-bold">${totalNet}</div>
             </CardContent>
           </Card>
           <Card>
@@ -67,7 +90,7 @@ const DashboardPage = async (props: Props) => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">$21</div>
+              <div className="text-2xl font-bold">${averageNet}</div>
             </CardContent>
           </Card>
           <Card>
@@ -78,10 +101,10 @@ const DashboardPage = async (props: Props) => {
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">1</div>
+              <div className="text-2xl font-bold">{transactions.length}</div>
             </CardContent>
           </Card>
-          <Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
                 Products In Stock
@@ -91,7 +114,7 @@ const DashboardPage = async (props: Props) => {
             <CardContent>
               <div className="text-2xl font-bold">1</div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
         <div className="grid grid-cols-3 gap-4">
           <Card className="col-span-2">
@@ -107,7 +130,7 @@ const DashboardPage = async (props: Props) => {
               <CardTitle>Campaign Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <PieSection data={pieData} />
+              <PieSection data={campaignRevenue} />
             </CardContent>
           </Card>
         </div>

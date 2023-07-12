@@ -4,19 +4,23 @@ import { DataTable } from "@/components/ui/data-table";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 
-import { columns, OrderColumn } from "./columns";
+import { columns, TransactionColumn } from "./columns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, DollarSign, Package } from "lucide-react";
 
 interface OrderClientProps {
-  data?: OrderColumn[];
+  data?: TransactionColumn[];
+  totalDonation: number;
 }
 
-export const TransactionClient: React.FC<OrderClientProps> = ({ data }) => {
+export const TransactionClient: React.FC<OrderClientProps> = ({
+  data,
+  totalDonation,
+}) => {
   return (
     <>
       <Heading
-        title={`Transactions (0)`}
+        title={`Transactions (${data?.length ? data.length : 0})`}
         description="Manage transactions for your store"
       />
       <Separator />
@@ -26,7 +30,7 @@ export const TransactionClient: React.FC<OrderClientProps> = ({ data }) => {
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">21</div>
+          <div className="text-2xl font-bold">{totalDonation}</div>
         </CardContent>
       </Card>
       <DataTable

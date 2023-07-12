@@ -36,20 +36,34 @@ const CampaignPage = async (props: Props) => {
     },
   });
 
-  const formattedCampaigns: CampaignColumn[] = campaigns.map((item) => ({
-    id: item.id,
-    label: item.title,
-    donors: 0,
-    active: item.status,
-    createdAt: format(item.createdAt, "MMMM do, yyyy"),
-  }));
+  const transactions = await prismadb.campaign.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  const formattedCampaigns: CampaignColumn[] = campaigns.map((item) => {
+    const numTransactions = transactions.filter(
+      (transaction) => transaction.title === item.title
+    ).length;
+
+    return {
+      id: item.id,
+      label: item.title,
+      donors: numTransactions,
+      active: item.status,
+      createdAt: format(item.createdAt, "MMMM do, yyyy"),
+    };
+  });
 
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="flex items-center justify-between">
           <Heading
-            title={`Campaigns (${formattedCampaigns.length ? formattedCampaigns.length : 0})`}
+            title={`Campaigns (${
+              formattedCampaigns.length ? formattedCampaigns.length : 0
+            })`}
             description="Manage campaign for your store"
           />
           <Link
