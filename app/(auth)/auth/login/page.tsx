@@ -71,15 +71,15 @@ const Login = () => {
     <Card className="w-[350px]">
       <CardHeader>
         <CardTitle>Login</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
+        <CardDescription>
+          Enter your credentials to sign in to your account.
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={onSubmit}>
-          <div className="grid gap-2">
+          <div className="grid gap-4">
             <div className="grid gap-1">
-              <Label className="sr-only" htmlFor="email">
-                Email
-              </Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 placeholder="name@example.com"
@@ -92,12 +92,11 @@ const Login = () => {
               />
             </div>
             <div className="grid gap-1">
-              <Label className="sr-only" htmlFor="email">
-                Password
-              </Label>
+              <Label htmlFor="email">Password</Label>
               <Input
                 id="password"
                 type="password"
+                placeholder="Password"
                 autoCapitalize="none"
                 autoComplete="password"
                 autoCorrect="off"
