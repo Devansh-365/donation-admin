@@ -7,6 +7,7 @@ import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { BarSection } from "@/components/graphs/bar-chart";
 import { PieSection } from "@/components/graphs/pie-chart";
+import { getDonationRevenue } from "@/actions/get-dontaion-revenue";
 
 type Props = {};
 
@@ -39,6 +40,8 @@ const DashboardPage = async (props: Props) => {
     redirect(authOptions?.pages?.signIn || "/auth/login");
   }
 
+  const donationRevenue = await getDonationRevenue();
+
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
@@ -53,16 +56,18 @@ const DashboardPage = async (props: Props) => {
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">21</div>
+              <div className="text-2xl font-bold">$21</div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Average Donation</CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">
+                Average Donation
+              </CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">+21</div>
+              <div className="text-2xl font-bold">$21</div>
             </CardContent>
           </Card>
           <Card>
@@ -70,7 +75,7 @@ const DashboardPage = async (props: Props) => {
               <CardTitle className="text-sm font-medium">
                 Number Of Transactions
               </CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
+              <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">1</div>
@@ -94,7 +99,7 @@ const DashboardPage = async (props: Props) => {
               <CardTitle>Donation Overview</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <BarSection data={data} />
+              <BarSection data={donationRevenue} />
             </CardContent>
           </Card>
           <Card className="cols-span-1">

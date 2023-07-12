@@ -30,7 +30,7 @@ export const TransactionClient: React.FC<OrderClientProps> = ({ data }) => {
         </CardContent>
       </Card>
       <DataTable
-        searchKey="products"
+        searchKey="campaign"
         columns={columns}
         data={data ? data : []}
       />

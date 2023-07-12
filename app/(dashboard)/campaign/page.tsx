@@ -49,7 +49,7 @@ const CampaignPage = async (props: Props) => {
       <div className="flex-1 space-y-4 p-8 pt-6">
         <div className="flex items-center justify-between">
           <Heading
-            title={`Campaigns (0)`}
+            title={`Campaigns (${formattedCampaigns.length ? formattedCampaigns.length : 0})`}
             description="Manage campaign for your store"
           />
           <Link

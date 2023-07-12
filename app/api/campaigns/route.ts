@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     const json = await req.json();
     const body = campaignCreateSchema.parse(json);
 
-    const post = await prismadb.campaign.create({
+    const campaign = await prismadb.campaign.create({
       data: {
         title: body.title,
         imageUrl: body.imageUrl,
@@ -49,7 +49,7 @@ export async function POST(req: Request) {
       },
     });
 
-    return new Response(JSON.stringify(post));
+    return new Response(JSON.stringify(campaign));
   } catch (error) {
     console.log(error);
     return new Response(null, { status: 500 });

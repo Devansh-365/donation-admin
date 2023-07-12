@@ -12,11 +12,31 @@ datasource db {
 }
 
 model Campaign {
-  id          String @id @default(uuid())
-  title       String
-  donors      String
-  imageUrl    String
-  status      Boolean
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String @id @default(uuid())
+  title         String @unique
+  donors        String
+  imageUrl      String
+  status        Boolean
+  transactions  Transaction[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
+
+model Transaction {
+  id            String @id @default(uuid())
+  campaignTitle String
+  campaign      Campaign @relation(fields: [campaignTitle], references: [title])
+  amount        Float
+  frais         Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([campaignTitle])
+}
+
+model Logo {
+  id        Int      @id @default(autoincrement())
+  name      String
+  logoUrl   String
+}
+
