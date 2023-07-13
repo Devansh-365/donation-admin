@@ -7,6 +7,8 @@ import { Separator } from "@/components/ui/separator";
 import { columns, TransactionColumn } from "./columns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, DollarSign, Package } from "lucide-react";
+import { useOrigin } from "@/hooks/use-origin";
+import { ApiAlert } from "@/components/ui/api-alert";
 
 interface OrderClientProps {
   data?: TransactionColumn[];
@@ -17,6 +19,8 @@ export const TransactionClient: React.FC<OrderClientProps> = ({
   data,
   totalDonation,
 }) => {
+  const origin = useOrigin();
+
   return (
     <>
       <Heading
@@ -37,6 +41,13 @@ export const TransactionClient: React.FC<OrderClientProps> = ({
         searchKey="campaign"
         columns={columns}
         data={data ? data : []}
+      />
+      <Heading title="API" description="API Calls for Transaction" />
+      <Separator />
+      <ApiAlert
+        title="GET"
+        variant="public"
+        description={`${origin}/api/transactions`}
       />
     </>
   );
