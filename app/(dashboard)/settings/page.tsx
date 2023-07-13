@@ -1,3 +1,4 @@
+import { ApiAlert } from "@/components/ui/api-alert";
 import { Heading } from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import UserForm from "@/components/user-form";
@@ -6,6 +7,7 @@ import prismadb from "@/lib/prismadb";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import React from "react";
+import SettingClient from "./components/client";
 
 export const metadata = {
   title: "Settings | Donation",
@@ -24,14 +26,7 @@ const SettingsPage = async () => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <Heading
-          title={`Settings`}
-          description="Manage account and website settings."
-        />
-        <Separator />
-        <div className="grid gap-10">
-          <UserForm initialData={data} />
-        </div>
+        <SettingClient data={data} />
       </div>
     </div>
   );
