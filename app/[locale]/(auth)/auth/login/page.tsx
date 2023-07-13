@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface LoginData {
   email: string;
@@ -29,7 +30,9 @@ const Login = () => {
     email: "",
     password: "",
   });
+
   const router = useRouter();
+  // const t = useTranslations("Index");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 

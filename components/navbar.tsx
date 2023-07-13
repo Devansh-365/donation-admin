@@ -4,6 +4,7 @@ import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { UserAccountNav } from "./user-account-nav";
 import { ThemeToggle } from "./theme-toggle";
+import { LangToggle } from "./lang-toggle";
 
 type Props = {};
 
@@ -15,6 +16,7 @@ const Navbar = async (props: Props) => {
       <div className="flex h-16 items-center px-4">
         <MainNav className="mx-6" />
         <div className="ml-auto flex items-center space-x-4">
+          <LangToggle />
           <ThemeToggle />
           <UserAccountNav
             user={{

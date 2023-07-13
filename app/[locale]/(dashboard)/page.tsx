@@ -10,6 +10,7 @@ import { PieSection } from "@/components/graphs/pie-chart";
 import { getDonationRevenue } from "@/actions/get-dontaion-revenue";
 import prismadb from "@/lib/prismadb";
 import { getCampaignRevenue } from "@/actions/get-campaign-revenue";
+import { getTranslator } from "next-intl/server";
 
 type Props = {};
 
@@ -35,8 +36,9 @@ const pieData = [
   { name: "Group D", value: 200 },
 ];
 
-const DashboardPage = async (props: Props) => {
+const DashboardPage = async ({ params: { locale } } : any) => {
   const user = await getCurrentUser();
+  const t = await getTranslator(locale, "Index");
 
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/auth/login");
@@ -68,7 +70,7 @@ const DashboardPage = async (props: Props) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <Heading title="Dashboard" description="Overview of your store" />
+        <Heading title={t("title")} description="Overview of your store" />
         <Separator />
         <div className="grid gap-4 grid-cols-3">
           <Card>
