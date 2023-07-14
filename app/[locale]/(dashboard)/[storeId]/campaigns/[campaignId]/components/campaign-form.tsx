@@ -61,9 +61,12 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
       setLoading(true);
       console.log("data ; ", data);
       if (initialData) {
-        await axios.patch(`/api/campaigns/${params?.campaignId}`, data);
+        await axios.patch(
+          `/api/${params?.storeId}/campaigns/${params?.campaignId}`,
+          data
+        );
       } else {
-        await axios.post(`/api/campaigns`, data);
+        await axios.post(`/api/${params?.storeId}/campaigns`, data);
       }
       router.refresh();
       router.push(`/campaigns`);
@@ -78,10 +81,12 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/campaigns/${params?.campaignId}`);
+      await axios.delete(
+        `/api/${params?.storeId}/campaigns/${params?.campaignId}`
+      );
       router.refresh();
       router.push(`/campaigns`);
-      toast.success("campaign deleted.");
+      toast.success("Campaign deleted.");
     } catch (error: any) {
       toast.error(
         "Make sure you removed all categories using this campaign first."

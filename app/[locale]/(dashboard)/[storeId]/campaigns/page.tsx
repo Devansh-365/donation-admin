@@ -15,6 +15,7 @@ import { ApiList } from "@/components/ui/api-list";
 import prismadb from "@/lib/prismadb";
 
 import { format } from "date-fns";
+import { CampaignClient } from "./components/client";
 
 type Props = {};
 
@@ -23,9 +24,8 @@ export const metadata = {
   description: "Manage campaign for your store",
 };
 
-const CampaignPage = async (props: Props) => {
+const CampaignPage = async ({ params }: { params: { storeId: string } }) => {
   const user = await getCurrentUser();
-
   if (!user) {
     redirect(authOptions?.pages?.signIn || "/auth/login");
   }
@@ -59,29 +59,7 @@ const CampaignPage = async (props: Props) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex items-center justify-between">
-          <Heading
-            title={`Campaigns (${
-              formattedCampaigns.length ? formattedCampaigns.length : 0
-            })`}
-            description="Manage campaign for your store"
-          />
-          <Link
-            className={cn(buttonVariants({ variant: "default" }))}
-            href="/campaigns/new"
-          >
-            <Plus className="mr-2 h-4 w-4" /> Add New
-          </Link>
-        </div>
-        <Separator />
-        <DataTable
-          searchKey="label"
-          columns={columns}
-          data={formattedCampaigns}
-        />
-        <Heading title="API" description="API Calls for Campaign" />
-        <Separator />
-        <ApiList entityName="campaigns" entityIdName="campaignId" />
+        <CampaignClient data={formattedCampaigns} />
       </div>
     </div>
   );
