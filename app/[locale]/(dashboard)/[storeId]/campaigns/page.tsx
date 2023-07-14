@@ -31,12 +31,18 @@ const CampaignPage = async ({ params }: { params: { storeId: string } }) => {
   }
 
   const campaigns = await prismadb.campaign.findMany({
+    where: {
+      storeId: params.storeId,
+    },
     orderBy: {
       createdAt: "desc",
     },
   });
 
   const transactions = await prismadb.transaction.findMany({
+    where: {
+      storeId: params.storeId,
+    },
     orderBy: {
       createdAt: "desc",
     },

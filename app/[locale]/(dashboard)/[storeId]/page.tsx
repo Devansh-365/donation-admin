@@ -79,7 +79,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Total Donation
+                {t("totalDonation")}
               </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -90,7 +90,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Average Donation
+                {t("averageDonation")}
               </CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -101,7 +101,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">
-                Number Of Transactions
+                {t("numberOfTransactions")}
               </CardTitle>
               <CreditCard className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
@@ -111,9 +111,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Store Id
-              </CardTitle>
+              <CardTitle className="text-sm font-medium">Store Id</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -124,18 +122,18 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
         <div className="grid grid-cols-3 gap-4">
           <Card className="col-span-2">
             <CardHeader>
-              <CardTitle>Donation Overview</CardTitle>
+              <CardTitle>{t("donationOverview")}</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <BarSection data={data} />
+              <BarSection data={donationRevenue} />
             </CardContent>
           </Card>
           <Card className="cols-span-1">
             <CardHeader>
-              <CardTitle>Campaign Overview</CardTitle>
+              <CardTitle>{t("campaignOverview")}</CardTitle>
             </CardHeader>
             <CardContent className="pl-2">
-              <PieSection data={pieData} />
+              <PieSection data={campaignRevenue} />
             </CardContent>
           </Card>
         </div>

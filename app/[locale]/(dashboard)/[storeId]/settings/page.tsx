@@ -15,7 +15,11 @@ export const metadata = {
 };
 
 const SettingsPage = async ({ params }: { params: { storeId: string } }) => {
-  const data = await prismadb.logo.findFirst();
+  const data = await prismadb.logo.findFirst({
+    where: {
+      storeId: params.storeId,
+    },
+  });
 
   return (
     <div className="flex-col">

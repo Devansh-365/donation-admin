@@ -10,6 +10,7 @@ import { Separator } from "@/components/ui/separator";
 import { ApiList } from "@/components/ui/api-list";
 
 import { columns, CampaignColumn } from "./columns";
+import { useTranslations } from "next-intl";
 
 interface CampaignClientProps {
   data: CampaignColumn[];
@@ -18,13 +19,14 @@ interface CampaignClientProps {
 export const CampaignClient: React.FC<CampaignClientProps> = ({ data }) => {
   const params = useParams();
   const router = useRouter();
+  const t = useTranslations("Campaigns");
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading
-          title={`Campaigns (${data.length})`}
-          description="Manage campaign for your store"
+          title={`${t("title")} (${data.length})`}
+          description={t("subtitle")}
         />
         <Button
           onClick={() => router.push(`/${params?.storeId}/campaigns/new`)}

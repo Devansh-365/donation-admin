@@ -6,15 +6,16 @@ import prismadb from "@/lib/prismadb";
 import { format } from "date-fns";
 import { TransactionColumn } from "./components/columns";
 
-type Props = {};
-
 export const metadata = {
   title: "Transactions | Donation",
   description: "Manage transaction for the store.",
 };
 
-const TransactionPage = async (props: Props) => {
+const TransactionPage = async ({ params }: { params: { storeId: string } }) => {
   const transactions = await prismadb.transaction.findMany({
+    where: {
+      storeId: params.storeId,
+    },
     orderBy: {
       createdAt: "desc",
     },

@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CreditCard, DollarSign, Package } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
 import { ApiAlert } from "@/components/ui/api-alert";
+import { useTranslations } from "next-intl";
 
 interface OrderClientProps {
   data?: TransactionColumn[];
@@ -20,17 +21,18 @@ export const TransactionClient: React.FC<OrderClientProps> = ({
   totalDonation,
 }) => {
   const origin = useOrigin();
+  const t = useTranslations("Transactions");
 
   return (
     <>
       <Heading
-        title={`Transactions (${data?.length ? data.length : 0})`}
-        description="Manage transactions for your store"
+        title={`${t("title")} (${data?.length ? data.length : 0})`}
+        description={t("subtitle")}
       />
       <Separator />
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Donation</CardTitle>
+          <CardTitle className="text-sm font-medium">{t("totalDonation")}</CardTitle>
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
