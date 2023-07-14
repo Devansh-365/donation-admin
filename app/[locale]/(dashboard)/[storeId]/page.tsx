@@ -50,6 +50,9 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
   const donationRevenue = await getDonationRevenue(params.storeId);
   const campaignRevenue = await getCampaignRevenue(params.storeId);
   const transactions = await prismadb.transaction.findMany({
+    where: {
+      storeId: params.storeId,
+    },
     orderBy: {
       createdAt: "desc",
     },
