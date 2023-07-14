@@ -19,6 +19,7 @@ import {
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 interface LoginData {
   email: string;
@@ -114,6 +115,14 @@ const Login = () => {
             </button>
           </div>
         </form>
+        <p className="px-8 mt-3 text-center text-sm text-muted-foreground">
+          <Link
+            href={`/auth/register`}
+            className="hover:text-brand underline underline-offset-4"
+          >
+            Already have an account? Login
+          </Link>
+        </p>
       </CardContent>
     </Card>
   );
