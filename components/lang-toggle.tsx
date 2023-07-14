@@ -14,6 +14,7 @@ import {
 import Image from "next/image";
 import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
+import Icons from "./icons";
 
 export function LangToggle() {
   const params = useParams();
@@ -22,14 +23,14 @@ export function LangToggle() {
       <DropdownMenuTrigger className="w-24" asChild>
         <Button variant="outline">
           {params?.locale === "en" ? (
-            <div className="flex items-center justify-center gap-1">
-              <Image src="/en.png" width={20} height={20} alt="" />
+            <div className="flex items-center justify-center gap-2 mx-auto">
               <span>English</span>
+              <Icons.ChevronDown className="mr-2 h-4 w-4" />
             </div>
           ) : (
-            <div className="flex items-center justify-center gap-1">
-              <Image src="/fr.png" width={20} height={20} alt="" />
+            <div className="flex items-center justify-center gap-2 mx-auto">
               <span>French</span>
+              <Icons.ChevronDown className="mr-2 h-4 w-4" />
             </div>
           )}
           <span className="sr-only">Language theme</span>
