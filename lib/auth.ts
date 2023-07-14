@@ -65,7 +65,10 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       const dbUser = await prismadb.user.findFirst({
         where: {
-          email: token.email,
+          email:
+            token.email !== null && token.email !== undefined
+              ? token.email
+              : undefined,
         },
       });
 
