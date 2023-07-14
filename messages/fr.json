@@ -2,10 +2,25 @@
   "Index": {
     "title": "Dashboard",
     "subtitle": "Présentation de votre magasin.",
-    "alertMessage": "Jotaki meni ny pielee!"
+    "alertMessage": "Jotaki meni ny pielee!",
+    "totalDonation": "Don total",
+    "averageDonation": "Don moyen",
+    "numberOfTransactions": "Nombre de transactions",
+    "donationOverview": "Aperçu des dons",
+    "campaignOverview": "Aperçu de la campagne"
+
   },
   "Settings": {
     "title": "Paramètres",
     "subtitle": "Gérer les paramètres du compte et du site Web."
+  },
+  "Campaigns": {
+    "title": "Campaigns",
+    "subtitle": "Gérer la campagne pour votre magasin."
+  },
+  "Transactions": {
+    "title": "Transactions",
+    "subtitle": "Gérez les transactions de votre magasin.",
+    "totalDonation": "Don total"
   }
 }

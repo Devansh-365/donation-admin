@@ -2,10 +2,24 @@
   "Index": {
     "title": "Dashboard",
     "subtitle": "Overview of your store.",
-    "alertMessage": "Something went wrong!"
+    "alertMessage": "Something went wrong!",
+    "totalDonation": "Total Donation",
+    "averageDonation": "Average Donation",
+    "numberOfTransactions": "Number Of Transactions",
+    "donationOverview": "Donation Overview",
+    "campaignOverview": "Campaign Overview"
   },
   "Settings": {
     "title": "Settings",
-     "subtitle": "Manage account and website settings."
+    "subtitle": "Manage account and website settings."
+  },
+  "Campaigns": {
+    "title": "Campaigns",
+    "subtitle": "Manage campaign for your store."
+  },
+  "Transactions": {
+    "title": "Transactions",
+    "subtitle": "Manage transactions for your store.",
+    "totalDonation": "Total Donation"
   }
 }
