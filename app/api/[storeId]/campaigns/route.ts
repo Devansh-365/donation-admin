@@ -45,8 +45,6 @@ export async function POST(
     }
 
     const { user } = session;
-    const userId = user?.name ? user.name : "";
-
     const json = await req.json();
     const body = campaignCreateSchema.parse(json);
 
@@ -57,7 +55,7 @@ export async function POST(
     const storeByUserId = await prismadb.store.findFirst({
       where: {
         id: params.storeId,
-        userId,
+        userId: user.id,
       },
     });
 

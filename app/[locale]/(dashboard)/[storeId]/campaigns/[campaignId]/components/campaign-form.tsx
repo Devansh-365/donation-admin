@@ -69,7 +69,7 @@ export const CampaignForm: React.FC<CampaignFormProps> = ({ initialData }) => {
         await axios.post(`/api/${params?.storeId}/campaigns`, data);
       }
       router.refresh();
-      router.push(`/campaigns`);
+      router.push(`/${params?.storeId}/campaigns`);
       toast.success(toastMessage);
     } catch (error: any) {
       toast.error("Something went wrong.");

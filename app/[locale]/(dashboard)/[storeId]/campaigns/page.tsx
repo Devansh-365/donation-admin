@@ -36,17 +36,16 @@ const CampaignPage = async ({ params }: { params: { storeId: string } }) => {
     },
   });
 
-  const transactions = await prismadb.campaign.findMany({
+  const transactions = await prismadb.transaction.findMany({
     orderBy: {
       createdAt: "desc",
     },
   });
 
   const formattedCampaigns: CampaignColumn[] = campaigns.map((item) => {
-    const numTransactions = transactions.filter(
-      (transaction) => transaction.title === item.title
-    ).length;
-
+    const numTransactions = transactions.filter((transaction) => {
+      transaction.campaignTitle === item.title;
+    }).length;
     return {
       id: item.id,
       label: item.title,
