@@ -16,11 +16,12 @@ import { buttonVariants } from "./ui/button";
 import ImageUpload from "./ui/image-upload";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 const UserForm = ({ initialData, className, ...props }: any) => {
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const router = useRouter();
+  const params = useParams();
 
   const toastMessage = initialData ? "Logo updated." : "Logo created.";
 
@@ -32,15 +33,13 @@ const UserForm = ({ initialData, className, ...props }: any) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
     const data: any = {
       logoUrl: formValues.logoUrl,
     };
-    console.log("data ; ", data);
     try {
       setIsSaving(true);
       console.log("data ; ", data);
-      await axios.post("/api/logo", data);
+      await axios.post(`/api/${params?.storeId}/logo`, data);
       router.refresh();
       toast.success(toastMessage);
     } catch (error: any) {
