@@ -11,6 +11,10 @@ const campaignCreateSchema = z.object({
   status: z.boolean(),
 });
 
+const campaignDeleteSchema = z.object({
+  campaignId: z.string(),
+});
+
 export async function GET(
   req: Request,
   { params }: { params: { campaignId: string } }
@@ -49,9 +53,6 @@ export async function DELETE(
     }
 
     const { user } = session;
-
-    const json = await req.json();
-    const body = campaignCreateSchema.parse(json);
 
     const campaign = await prismadb.campaign.delete({
       where: {

@@ -11,8 +11,32 @@ datasource db {
   relationMode = "prisma"
 }
 
+model User {
+  id             String    @id @default(uuid())
+  name           String?
+  email          String   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Store {
+  id              String    @id @default(uuid())
+  name            String
+  userId          String
+  campaigns       Campaign[] @relation("StoreToCampaign")
+  transactions    Transaction[] @relation("StoreToTransaction")
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+}
+
+
 model Campaign {
   id            String @id @default(uuid())
+  storeId       String
+  store         Store @relation("StoreToCampaign", fields: [storeId], references: [id])
   title         String @unique
   donors        String
   imageUrl      String
@@ -20,17 +44,22 @@ model Campaign {
   transactions  Transaction[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
+
+  @@index([storeId])
 }
 
 model Transaction {
   id            String @id @default(uuid())
-  campaignTitle String
-  campaign      Campaign @relation(fields: [campaignTitle], references: [title])
+  storeId       String
+  store         Store       @relation("StoreToTransaction", fields: [storeId], references: [id])
+  campaignTitle    String
+  campaign      Campaign    @relation(fields: [campaignTitle], references: [title])
   amount        Float
   frais         Float
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  @@index([storeId])
   @@index([campaignTitle])
 }
 

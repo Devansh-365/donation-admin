@@ -5,8 +5,14 @@ interface GraphData {
   total: number;
 }
 
-export const getDonationRevenue = async (): Promise<GraphData[]> => {
-  const transactions = await prismadb.transaction.findMany();
+export const getDonationRevenue = async (
+  storeId: string
+): Promise<GraphData[]> => {
+  const transactions = await prismadb.transaction.findMany({
+    where: {
+      storeId,
+    },
+  });
 
   const monthlyRevenue: { [key: number]: number } = {};
 

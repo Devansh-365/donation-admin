@@ -14,24 +14,24 @@ const MainNav = ({
 
   const routes = [
     {
-      href: `/`,
+      href: `/${params?.storeId}`,
       label: "Overview",
-      active: pathname === `/`,
+      active: pathname === `/${params?.storeId}`,
     },
     {
-      href: `/campaigns`,
+      href: `/${params?.storeId}/campaigns`,
       label: "Campaigns",
-      active: pathname === `/campaigns`,
+      active: pathname === `/${params?.storeId}/campaigns`,
     },
     {
-      href: `/transactions`,
+      href: `/${params?.storeId}/transactions`,
       label: "Transactions",
-      active: pathname === `/transactions`,
+      active: pathname === `/${params?.storeId}/transactions`,
     },
     {
-      href: `/settings`,
+      href: `/${params?.storeId}/settings`,
       label: "Settings",
-      active: pathname === `/settings`,
+      active: pathname === `/${params?.storeId}/settings`,
     },
   ];
 

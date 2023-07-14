@@ -36,17 +36,19 @@ const pieData = [
   { name: "Group D", value: 200 },
 ];
 
-const DashboardPage = async ({ params: { locale } } : any) => {
+interface DashboardPageProps {
+  params: {
+    storeId: string;
+    locale: string;
+  };
+}
+
+const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
   const user = await getCurrentUser();
-  const t = await getTranslator(locale, "Index");
+  const t = await getTranslator(params.locale, "Index");
 
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/auth/login");
-  }
-
-  const donationRevenue = await getDonationRevenue();
-  const campaignRevenue = await getCampaignRevenue();
-  console.log("camp : ", campaignRevenue);
+  const donationRevenue = await getDonationRevenue(params.storeId);
+  const campaignRevenue = await getCampaignRevenue(params.storeId);
   const transactions = await prismadb.transaction.findMany({
     orderBy: {
       createdAt: "desc",
@@ -62,7 +64,8 @@ const DashboardPage = async ({ params: { locale } } : any) => {
   }
   function averageDonation(transactions: any): number {
     const total = totalDonation(transactions);
-    return total / transactions.length;
+    const average = total / transactions.length;
+    return isNaN(average) ? 0 : average;
   }
   const totalNet = totalDonation(transactions);
   const averageNet = averageDonation(transactions);
@@ -70,7 +73,7 @@ const DashboardPage = async ({ params: { locale } } : any) => {
   return (
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <Heading title={t("title")} description="Overview of your store" />
+        <Heading title={t("title")} description={t("subtitle")} />
         <Separator />
         <div className="grid gap-4 grid-cols-3">
           <Card>

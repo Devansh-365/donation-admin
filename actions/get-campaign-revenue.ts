@@ -5,8 +5,14 @@ interface GraphData {
   value: number;
 }
 
-export const getCampaignRevenue = async (): Promise<GraphData[]> => {
-  const transactions = await prismadb.transaction.findMany();
+export const getCampaignRevenue = async (
+  storeId: string
+): Promise<GraphData[]> => {
+  const transactions = await prismadb.transaction.findMany({
+    where: {
+      storeId,
+    },
+  });
   const uniqueCampaignTitles = Array.from(
     new Set(transactions.map((transaction) => transaction.campaignTitle))
   );

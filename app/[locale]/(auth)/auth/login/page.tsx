@@ -50,13 +50,11 @@ const Login = () => {
       redirect: false,
       callbackUrl,
     });
-
-    console.log(signInResult);
-
     setIsLoading(false);
+    console.log("SIGNIN : ", signInResult);
 
     if (!signInResult?.ok) {
-      return toast.success("Your sign in request failed. Please try again.");
+      return toast.error("Your sign in request failed. Please try again.");
     }
     if (!signInResult?.error) {
       router.push(callbackUrl);

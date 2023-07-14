@@ -27,7 +27,7 @@ const CampaignPage = async (props: Props) => {
   const user = await getCurrentUser();
 
   if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login");
+    redirect(authOptions?.pages?.signIn || "/auth/login");
   }
 
   const campaigns = await prismadb.campaign.findMany({

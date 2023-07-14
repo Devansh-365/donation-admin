@@ -1,7 +1,11 @@
 {
   "Index": {
-    "title": "Hei maailma!!",
-    "subtitle": "Kuis menee?",
+    "title": "Dashboard",
+    "subtitle": "Présentation de votre magasin.",
     "alertMessage": "Jotaki meni ny pielee!"
+  },
+  "Settings": {
+    "title": "Paramètres",
+    "subtitle": "Gérer les paramètres du compte et du site Web."
   }
 }

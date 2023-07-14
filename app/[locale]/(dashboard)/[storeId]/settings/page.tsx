@@ -14,13 +14,7 @@ export const metadata = {
   description: "Manage account and website settings.",
 };
 
-const SettingsPage = async () => {
-  const user = await getCurrentUser();
-
-  if (!user) {
-    redirect(authOptions?.pages?.signIn || "/login");
-  }
-
+const SettingsPage = async ({ params }: { params: { storeId: string } }) => {
   const data = await prismadb.logo.findFirst();
 
   return (

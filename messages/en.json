@@ -1,7 +1,11 @@
 {
   "Index": {
-    "title": "Hello world!!",
-    "subtitle": "How is it going?",
+    "title": "Dashboard",
+    "subtitle": "Overview of your store.",
     "alertMessage": "Something went wrong!"
+  },
+  "Settings": {
+    "title": "Settings",
+     "subtitle": "Manage account and website settings."
   }
 }

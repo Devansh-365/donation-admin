@@ -19,12 +19,18 @@ export function LangToggle() {
   const params = useParams();
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon">
+      <DropdownMenuTrigger className="w-24" asChild>
+        <Button variant="outline">
           {params?.locale === "en" ? (
-            <Image src="/en.png" width={20} height={20} alt="" />
+            <div className="flex items-center justify-center gap-1">
+              <Image src="/en.png" width={20} height={20} alt="" />
+              <span>English</span>
+            </div>
           ) : (
-            <Image src="/fr.png" width={20} height={20} alt="" />
+            <div className="flex items-center justify-center gap-1">
+              <Image src="/fr.png" width={20} height={20} alt="" />
+              <span>French</span>
+            </div>
           )}
           <span className="sr-only">Language theme</span>
         </Button>
