@@ -11,7 +11,7 @@ import { ModalProvider } from "@/providers/modal-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export function generateStaticParams() {
-  return [{ locale: "en" }, { locale: "de" }];
+  return [{ locale: "en" }, { locale: "fr" }];
 }
 
 export const metadata: Metadata = {
