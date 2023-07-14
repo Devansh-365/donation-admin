@@ -120,7 +120,7 @@ const Login = () => {
             href={`/auth/register`}
             className="hover:text-brand underline underline-offset-4"
           >
-            Already have an account? Login
+            {`Don't have an account? Register`}
           </Link>
         </p>
       </CardContent>
