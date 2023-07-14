@@ -28,6 +28,7 @@ model Store {
   userId          String
   campaigns       Campaign[] @relation("StoreToCampaign")
   transactions    Transaction[] @relation("StoreToTransaction")
+  logo            Logo[] @relation("StoreToLogo")
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }
@@ -66,6 +67,10 @@ model Transaction {
 model Logo {
   id        Int      @id @default(autoincrement())
   name      String
+  storeId   String
+  store     Store       @relation("StoreToLogo", fields: [storeId], references: [id])
   logoUrl   String
+
+  @@index([storeId])
 }
 
