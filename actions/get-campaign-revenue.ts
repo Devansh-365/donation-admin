@@ -1,7 +1,7 @@
 import prismadb from "@/lib/prismadb";
 
 interface GraphData {
-  name: string;
+  name: string | null;
   value: number;
 }
 
@@ -16,7 +16,6 @@ export const getCampaignRevenue = async (
   const uniqueCampaignTitles = Array.from(
     new Set(transactions.map((transaction) => transaction.campaignTitle))
   );
-
   const campaignRevenue: GraphData[] = uniqueCampaignTitles.map((title) => {
     const totalAmount = transactions
       .filter((transaction) => transaction.campaignTitle === title)
@@ -24,6 +23,5 @@ export const getCampaignRevenue = async (
 
     return { name: title, value: totalAmount };
   });
-
   return campaignRevenue;
 };
