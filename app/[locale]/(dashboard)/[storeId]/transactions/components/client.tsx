@@ -10,6 +10,7 @@ import { CreditCard, DollarSign, Package } from "lucide-react";
 import { useOrigin } from "@/hooks/use-origin";
 import { ApiAlert } from "@/components/ui/api-alert";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface OrderClientProps {
   data?: TransactionColumn[];
@@ -21,6 +22,7 @@ export const TransactionClient: React.FC<OrderClientProps> = ({
   totalDonation,
 }) => {
   const origin = useOrigin();
+  const params = useParams();
   const t = useTranslations("Transactions");
 
   return (
@@ -49,7 +51,7 @@ export const TransactionClient: React.FC<OrderClientProps> = ({
       <ApiAlert
         title="GET"
         variant="public"
-        description={`${origin}/api/transactions`}
+        description={`${origin}/api/${params?.storeId}/transactions`}
       />
     </>
   );

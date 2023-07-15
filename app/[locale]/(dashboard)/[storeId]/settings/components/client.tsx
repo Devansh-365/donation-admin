@@ -74,7 +74,7 @@ const SettingClient = ({ data }: any) => {
       <ApiAlert
         title="GET_LOGO"
         variant="public"
-        description={`${origin}/api/logo`}
+        description={`${origin}/api/${params?.storeId}/logo`}
       />
     </>
   );
