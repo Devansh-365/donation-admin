@@ -24,7 +24,7 @@ const TransactionPage = async ({ params }: { params: { storeId: string } }) => {
   const formattedTransaction: TransactionColumn[] = transactions.map(
     (item) => ({
       id: item.id,
-      campaign: item.campaignTitle,
+      campaign: item.campaignTitle ? item.campaignTitle : "anonymous",
       amount: item.amount,
       frais: item.frais,
       net: item.amount - item.frais,
