@@ -57,6 +57,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.role = token.role;
         session.user.image = token.picture;
       }
 
@@ -82,6 +83,7 @@ export const authOptions: NextAuthOptions = {
       return {
         id: dbUser.id,
         name: dbUser.name,
+        role: dbUser.role,
         email: dbUser.email,
         picture: dbUser.image,
       };
