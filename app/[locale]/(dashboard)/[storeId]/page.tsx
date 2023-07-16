@@ -112,7 +112,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
               <div className="text-2xl font-bold">{transactions.length}</div>
             </CardContent>
           </Card>
-          <Card>
+          {/* <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Store Id</CardTitle>
               <Package className="h-4 w-4 text-muted-foreground" />
@@ -120,7 +120,7 @@ const DashboardPage: React.FC<DashboardPageProps> = async ({ params }) => {
             <CardContent>
               <div className="text-2xl font-bold">1</div>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
         <div className="grid grid-cols-3 gap-4">
           <Card className="col-span-2">
