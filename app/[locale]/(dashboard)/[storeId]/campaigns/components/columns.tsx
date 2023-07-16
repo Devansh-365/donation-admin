@@ -23,7 +23,7 @@ export const columns: ColumnDef<CampaignColumn>[] = [
   },
   {
     accessorKey: "active",
-    header: "Status",
+    header: "Archived",
   },
   {
     accessorKey: "createdAt",
