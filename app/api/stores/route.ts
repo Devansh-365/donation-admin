@@ -3,6 +3,16 @@ import prismadb from "@/lib/prismadb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+export async function GET(req: Request) {
+  try {
+    const stores = await prismadb.store.findMany();
+    return NextResponse.json(stores);
+  } catch (error) {
+    console.log("[STORES_GET]", error);
+    return new NextResponse(null, { status: 500 });
+  }
+}
+
 export async function POST(req: Request) {
   try {
     const session = await getServerSession(authOptions);
