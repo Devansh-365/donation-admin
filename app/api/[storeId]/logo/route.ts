@@ -24,7 +24,7 @@ export async function GET(
 
     const logo = await prismadb.logo.findFirst();
 
-    return NextResponse.json(JSON.stringify(logo));
+    return NextResponse.json(logo);
   } catch (error) {
     return new NextResponse(null, { status: 500 });
   }
@@ -72,7 +72,7 @@ export async function POST(
         data: { logoUrl: body.logoUrl },
       });
 
-      return new NextResponse(JSON.stringify(updatedLogo));
+      return NextResponse.json(updatedLogo);
     } else {
       const newLogo = await prismadb.logo.create({
         data: {
@@ -82,7 +82,7 @@ export async function POST(
         },
       });
 
-      return new NextResponse(JSON.stringify(newLogo));
+      return NextResponse.json(newLogo);
     }
   } catch (error) {
     console.log(error);
