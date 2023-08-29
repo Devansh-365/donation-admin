@@ -28,8 +28,8 @@ interface LoginData {
 
 const Login = () => {
   const [formData, setFormData] = useState<LoginData>({
-    email: "",
-    password: "",
+    email: "admin@admin.com",
+    password: "admin@123",
   });
 
   const router = useRouter();
@@ -39,6 +39,8 @@ const Login = () => {
 
   const searchParams = useSearchParams();
   const callbackUrl = searchParams?.get("callbackUrl") || "/";
+
+  console.log("SIGNIN : ", formData.email.toLowerCase(), formData.password);
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,7 +54,6 @@ const Login = () => {
       callbackUrl,
     });
     setIsLoading(false);
-    console.log("SIGNIN : ", signInResult);
 
     if (!signInResult?.ok) {
       return toast.error("Your sign in request failed. Please try again.");
@@ -86,6 +87,7 @@ const Login = () => {
                 id="email"
                 placeholder="name@example.com"
                 type="email"
+                defaultValue="admin@admin.com"
                 autoCapitalize="none"
                 autoComplete="email"
                 autoCorrect="off"
@@ -99,6 +101,7 @@ const Login = () => {
                 id="password"
                 type="password"
                 placeholder="Password"
+                defaultValue="admin@123"
                 autoCapitalize="none"
                 autoComplete="password"
                 autoCorrect="off"
